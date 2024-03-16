@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from "../ui/button/Button";
 
 export type TaskProps = {
     id: string
@@ -8,8 +9,10 @@ export type TaskProps = {
 
 type TodolistProps = {
     tasks: TaskProps[]
+    removeTask: (id: string)=>void
 }
-export const Todolist = ({tasks}: TodolistProps) => {
+export const Todolist = ({tasks, removeTask}: TodolistProps) => {
+
     return (
         <div>
             <h3>What to learn</h3>
@@ -19,8 +22,12 @@ export const Todolist = ({tasks}: TodolistProps) => {
             </div>
             <ul>
                 {tasks.map( (el)=>{
+                    const removeOnCklick = () => {
+                        removeTask(el.id)
+                    }
                     return (
                         <li key={el.id}>
+                            <button onClick={removeOnCklick}>X</button>
                             <input type="checkbox" checked={el.isDone}/>
                             <span>{el.title}</span>
                         </li>
@@ -28,9 +35,9 @@ export const Todolist = ({tasks}: TodolistProps) => {
                 })}
             </ul>
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <Button>All</Button>
+                <Button>Active</Button>
+                <Button>Completed</Button>
             </div>
         </div>
     );

@@ -10,10 +10,17 @@ function App() {
         {id:v1(), title: 'React', isDone: false},
     ])
 
+    function removeTask (id: string){
+        let filteredTasks = tasks.filter( el => el.id !==id )
+        setTasks( filteredTasks )
+    }
+
     return (
         <div className="App">
 
-            <Todolist tasks={tasks}/>
+            <Todolist tasks={tasks}
+                      removeTask={removeTask}
+            />
 
         </div>
     );
