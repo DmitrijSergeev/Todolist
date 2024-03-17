@@ -23,8 +23,10 @@ export const Todolist = ({tasks, removeTask, changeFilter, addTask}: TodolistPro
 
     const addTaskHandler = () => {
         if (inputRef.current){
-            addTask(inputRef.current.value.trim())
-            inputRef.current.value = ''
+            if (inputRef.current.value !==''){
+                addTask(inputRef.current.value.trim())
+                inputRef.current.value = ''
+            }
         }
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
