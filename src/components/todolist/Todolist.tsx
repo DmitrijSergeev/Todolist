@@ -1,15 +1,16 @@
 import React from 'react';
 import {Button} from "../ui/button/Button";
+import s from './Todolist.module.css'
 
 export type TaskProps = {
-    id: string
+    taskId: string
     title: string
     isDone: boolean
 }
 
 type TodolistProps = {
     tasks: TaskProps[]
-    removeTask: (id: string)=>void
+    removeTask: (taskId: string)=>void
 }
 export const Todolist = ({tasks, removeTask}: TodolistProps) => {
 
@@ -20,20 +21,24 @@ export const Todolist = ({tasks, removeTask}: TodolistProps) => {
                 <input/>
                 <button>+</button>
             </div>
-            <ul>
-                {tasks.map( (el)=>{
-                    const removeOnCklick = () => {
-                        removeTask(el.id)
-                    }
-                    return (
-                        <li key={el.id}>
-                            <button onClick={removeOnCklick}>X</button>
-                            <input type="checkbox" checked={el.isDone}/>
-                            <span>{el.title}</span>
-                        </li>
-                    )
-                })}
-            </ul>
+            {tasks.length === 0 ? (
+                <p className={s.tasks}>Array is empty</p>
+                ) : (
+                <ul>
+                    {tasks.map((el) => {
+                        const removeOnCklick = () => {
+                            removeTask(el.taskId)
+                        }
+                        return (
+                            <li key={el.taskId}>
+                                <Button onClick={removeOnCklick}>X</Button>
+                                <input type="checkbox" checked={el.isDone}/>
+                                <span>{el.title}</span>
+                            </li>
+                        )
+                    })}
+                </ul>
+            )}
             <div>
                 <Button>All</Button>
                 <Button>Active</Button>

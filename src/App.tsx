@@ -5,13 +5,13 @@ import {v1} from "uuid";
 
 function App() {
     const [tasks, setTasks] = useState([
-        {id:v1(), title: 'HTML', isDone: true},
-        {id:v1(), title: 'JS', isDone: false},
-        {id:v1(), title: 'React', isDone: false},
+        {taskId:v1(), title: 'HTML', isDone: true},
+        {taskId:v1(), title: 'JS', isDone: false},
+        {taskId:v1(), title: 'React', isDone: false},
     ])
 
-    function removeTask (id: string){
-        let filteredTasks = tasks.filter( el => el.id !==id )
+    function removeTask (taskId: string){
+        let filteredTasks = tasks.filter( t => t.taskId !==taskId )
         setTasks( filteredTasks )
     }
 
