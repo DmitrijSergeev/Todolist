@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Button} from "../ui/button/Button";
 import s from './Todolist.module.css'
+import {FilterType} from "../../App";
 
 export type TaskProps = {
     taskId: string
@@ -11,15 +12,27 @@ export type TaskProps = {
 type TodolistProps = {
     tasks: TaskProps[]
     removeTask: (taskId: string)=>void
+    changeFilter: (filter: FilterType)=> void
+    addTask: (title: string)=>void
 }
-export const Todolist = ({tasks, removeTask}: TodolistProps) => {
+export const Todolist = ({tasks, removeTask, changeFilter, addTask}: TodolistProps) => {
+    const [title, setTitle] = useState('')
+    const onClickAllHandler = () => {changeFilter('all') }
+    const onClickActiveHandler = () => {changeFilter('active') }
+    const onClickCompletedHandler = () => {changeFilter('completed') }
 
+    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+    const addTaskHandler = () => {
+        addTask(title)
+    }
     return (
         <div>
             <h3>What to learn</h3>
             <div>
-                <input/>
-                <button>+</button>
+                <input value={title} onChange={onChangeTitleHandler}/>
+                <Button onClick={addTaskHandler}>+</Button>
             </div>
             {tasks.length === 0 ? (
                 <p className={s.tasks}>Array is empty</p>
@@ -40,9 +53,9 @@ export const Todolist = ({tasks, removeTask}: TodolistProps) => {
                 </ul>
             )}
             <div>
-                <Button>All</Button>
-                <Button>Active</Button>
-                <Button>Completed</Button>
+                <Button onClick={onClickAllHandler}>All</Button>
+                <Button onClick={onClickActiveHandler}>Active</Button>
+                <Button onClick={onClickCompletedHandler}>Completed</Button>
             </div>
         </div>
     );
