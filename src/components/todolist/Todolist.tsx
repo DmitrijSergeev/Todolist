@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useRef, KeyboardEvent} from 'react';
 import {Button} from "../ui/button/Button";
 import s from './Todolist.module.css'
 import {FilterType} from "../../App";
@@ -16,22 +16,27 @@ type TodolistProps = {
     addTask: (title: string)=>void
 }
 export const Todolist = ({tasks, removeTask, changeFilter, addTask}: TodolistProps) => {
-    const [title, setTitle] = useState('')
+    const inputRef = useRef<HTMLInputElement>(null)
     const onClickAllHandler = () => {changeFilter('all') }
     const onClickActiveHandler = () => {changeFilter('active') }
     const onClickCompletedHandler = () => {changeFilter('completed') }
 
-    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
     const addTaskHandler = () => {
-        addTask(title)
+        if (inputRef.current){
+            addTask(inputRef.current.value.trim())
+            inputRef.current.value = ''
+        }
+    }
+    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter'){
+            addTaskHandler()
+        }
     }
     return (
         <div>
             <h3>What to learn</h3>
             <div>
-                <input value={title} onChange={onChangeTitleHandler}/>
+                <input ref={inputRef} onKeyDown={onKeyDownHandler}/>
                 <Button onClick={addTaskHandler}>+</Button>
             </div>
             {tasks.length === 0 ? (
