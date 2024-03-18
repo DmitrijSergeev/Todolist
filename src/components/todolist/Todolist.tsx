@@ -2,6 +2,7 @@ import React, {useRef, KeyboardEvent} from 'react';
 import {Button} from "../ui/button/Button";
 import s from './Todolist.module.css'
 import {FilterType} from "../../App";
+import {Input} from "../ui/input/Input";
 
 export type TaskProps = {
     taskId: string
@@ -38,7 +39,7 @@ export const Todolist = ({tasks, removeTask, changeFilter, addTask}: TodolistPro
         <div>
             <h3>What to learn</h3>
             <div>
-                <input ref={inputRef} onKeyDown={onKeyDownHandler}/>
+                <Input ref={inputRef} onKeyDown={onKeyDownHandler}/>
                 <Button onClick={addTaskHandler}>+</Button>
             </div>
             {tasks.length === 0 ? (
