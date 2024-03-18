@@ -1,9 +1,11 @@
 import React from 'react';
+import * as RadixCheckbox from '@radix-ui/react-checkbox';
 
 export const Checkbox = () => {
     return (
-        <div>
-
-        </div>
+        <RadixCheckbox.Root>
+            <RadixCheckbox.Indicator >
+            </RadixCheckbox.Indicator >
+        </RadixCheckbox.Root>
     );
 };

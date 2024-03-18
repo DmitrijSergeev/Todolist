@@ -1,4 +1,4 @@
-import React, {useRef, KeyboardEvent, ChangeEvent} from 'react';
+import React, {useRef, KeyboardEvent, ChangeEvent, useState} from 'react';
 import {Button} from "../ui/button/Button";
 import s from './Todolist.module.css'
 import {FilterType} from "../../App";
@@ -20,6 +20,9 @@ type TodolistProps = {
 export const Todolist = (
     {tasks, removeTask, changeFilter, addTask, changeTaskStatus}: TodolistProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
+
+    const [error, setError] = useState<string|null>(null)
+
     const onClickAllHandler = () => {changeFilter('all') }
     const onClickActiveHandler = () => {changeFilter('active') }
     const onClickCompletedHandler = () => {changeFilter('completed') }
@@ -29,10 +32,13 @@ export const Todolist = (
             if (inputRef.current.value !==''){
                 addTask(inputRef.current.value.trim())
                 inputRef.current.value = ''
+            } else {
+                setError('Title is required')
             }
         }
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        setError(null)
         if (e.key === 'Enter'){
             addTaskHandler()
         }
@@ -41,8 +47,11 @@ export const Todolist = (
         <div>
             <h3>What to learn</h3>
             <div>
-                <Input ref={inputRef} onKeyDown={onKeyDownHandler}/>
+                <Input ref={inputRef} onKeyDown={onKeyDownHandler}
+                       className={error ? s.error : ''}
+                />
                 <Button onClick={addTaskHandler}>+</Button>
+                {error && <div className={s.errorMessage}>{error}</div> }
             </div>
             {tasks.length === 0 ? (
                 <p className={s.tasks}>Array is empty</p>

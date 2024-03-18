@@ -10,7 +10,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
     return (
         <label>
-            <input ref={ref} onKeyDown={onKeyDown}></input>
+            <input ref={ref} onKeyDown={onKeyDown} className={className}>
+
+            </input>
         </label>
     );
 });
