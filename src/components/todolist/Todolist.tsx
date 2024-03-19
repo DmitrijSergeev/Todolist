@@ -37,7 +37,9 @@ export const Todolist = (props: TodolistProps) => {
     }
     return (
         <div>
-            <h3>{title}</h3>
+            <h3>
+                <EditableSpan value={title}/>
+            </h3>
             <Button onClick={removeTodoHandler}>x</Button>
             <AddItemForm addItem={addTaskCallback}/>
             {tasks.length === 0 ? (
