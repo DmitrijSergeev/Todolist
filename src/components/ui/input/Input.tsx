@@ -1,18 +1,17 @@
-import React, {ComponentPropsWithRef, forwardRef} from 'react';
+import React, {ComponentPropsWithRef, ElementType, forwardRef} from 'react';
 
-type InputProps = {
+type InputProps<T extends ElementType = 'input'> = {
+    as?: T
     className?: string
-} & ComponentPropsWithRef<'input'>
+} & ComponentPropsWithRef<T>
 
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-    const {className, onKeyDown, ...rest} = props;
+    const {className, as: Component = 'input', ...rest} = props;
 
     return (
         <label>
-            <input ref={ref} onKeyDown={onKeyDown} className={className} {...rest}>
-
-            </input>
+            <Component ref={ref} className={className} {...rest}/>
         </label>
     );
 });

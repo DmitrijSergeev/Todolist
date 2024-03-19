@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Input} from "../ui/input/Input";
 
 type EditableSpanProps = {
     value: string
@@ -15,7 +16,7 @@ export const EditableSpan = ({value}: EditableSpanProps) => {
     return (
         <>
             {editMode ? (
-                <input value={value} autoFocus onBlur={deActivateSetEditableSpan}/>
+                <Input value={value} autoFocus onBlur={deActivateSetEditableSpan}/>
             ) : (
                 <span onDoubleClick={activateSetEditableSpan}>{value}</span>
             )}
