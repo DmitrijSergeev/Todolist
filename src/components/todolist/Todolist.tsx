@@ -3,6 +3,7 @@ import {Button} from "../ui/button/Button";
 import s from './Todolist.module.css'
 import {FilterType} from "../../App";
 import {AddItemForm} from "../addItemForm/AddItemForm";
+import {EditableSpan} from "../editableSpan/EditableSpan";
 
 export type TaskProps = {
     taskId: string
@@ -57,7 +58,7 @@ export const Todolist = (props: TodolistProps) => {
                                 <input type="checkbox" checked={t.isDone}
                                        onChange={onChangeCheckedHandler}
                                 />
-                                <span>{t.title}</span>
+                                <EditableSpan value={t.title}/>
                             </li>
                         )
                     })}
