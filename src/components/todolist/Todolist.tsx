@@ -12,24 +12,32 @@ export type TaskProps = {
 
 type TodolistProps = {
     tasks: TaskProps[]
-    removeTask: (taskId: string)=>void
-    changeFilter: (filter: FilterType)=> void
-    addTask: (title: string)=>void
-    changeTaskStatus: (taskId: string, isDone: boolean)=> void
+    removeTask: (taskId: string) => void
+    changeFilter: (filter: FilterType) => void
+    addTask: (title: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    filter: FilterType
+    title: string
 }
 export const Todolist = (
-    {tasks, removeTask, changeFilter, addTask, changeTaskStatus}: TodolistProps) => {
+    {tasks, removeTask, changeFilter, addTask, changeTaskStatus, filter, title}: TodolistProps) => {
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const [error, setError] = useState<string|null>(null)
+    const [error, setError] = useState<string | null>(null)
 
-    const onClickAllHandler = () => {changeFilter('all') }
-    const onClickActiveHandler = () => {changeFilter('active') }
-    const onClickCompletedHandler = () => {changeFilter('completed') }
+    const onClickAllHandler = () => {
+        changeFilter('all')
+    }
+    const onClickActiveHandler = () => {
+        changeFilter('active')
+    }
+    const onClickCompletedHandler = () => {
+        changeFilter('completed')
+    }
 
     const addTaskHandler = () => {
-        if (inputRef.current){
-            if (inputRef.current.value !==''){
+        if (inputRef.current) {
+            if (inputRef.current.value !== '') {
                 addTask(inputRef.current.value.trim())
                 inputRef.current.value = ''
             } else {
@@ -39,45 +47,54 @@ export const Todolist = (
     }
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
-        if (e.key === 'Enter'){
+        if (e.key === 'Enter') {
             addTaskHandler()
         }
     }
     return (
         <div>
-            <h3>What to learn</h3>
+            <h3>{title}</h3>
             <div>
                 <Input ref={inputRef} onKeyDown={onKeyDownHandler}
                        className={error ? s.error : ''}
                 />
                 <Button onClick={addTaskHandler}>+</Button>
-                {error && <div className={s.errorMessage}>{error}</div> }
+                {error && <div className={s.errorMessage}>{error}</div>}
             </div>
             {tasks.length === 0 ? (
                 <p className={s.tasks}>Array is empty</p>
-                ) : (
+            ) : (
                 <ul>
-                    {tasks.map((el) => {
-                        const removeOnCklick = () => {removeTask(el.taskId)}
+                    {tasks.map((t) => {
+                        const removeOnCklick = () => {
+                            removeTask(t.taskId)
+                        }
                         const onChangeCheckedHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                            changeTaskStatus(el.taskId, e.currentTarget.checked)
+                            changeTaskStatus(t.taskId, e.currentTarget.checked)
                         }
                         return (
-                            <li key={el.taskId}>
+                            <li key={t.taskId}
+                                className={t.isDone ? s.isDone : ''}>
                                 <Button onClick={removeOnCklick}>X</Button>
-                                <input type="checkbox" checked={el.isDone}
+                                <input type="checkbox" checked={t.isDone}
                                        onChange={onChangeCheckedHandler}
                                 />
-                                <span>{el.title}</span>
+                                <span>{t.title}</span>
                             </li>
                         )
                     })}
                 </ul>
             )}
             <div>
-                <Button onClick={onClickAllHandler}>All</Button>
-                <Button onClick={onClickActiveHandler}>Active</Button>
-                <Button onClick={onClickCompletedHandler}>Completed</Button>
+                <Button className={filter === 'all' ? s.activeFilter : ''} onClick={onClickAllHandler}>
+                    All
+                </Button>
+                <Button className={filter === 'active' ? s.activeFilter : ''} onClick={onClickActiveHandler}>
+                    Active
+                </Button>
+                <Button className={filter === 'completed' ? s.activeFilter : ''} onClick={onClickCompletedHandler}>
+                    Completed
+                </Button>
             </div>
         </div>
     );

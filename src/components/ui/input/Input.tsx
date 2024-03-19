@@ -6,7 +6,7 @@ type InputProps = {
 
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-    const {className, onKeyDown, ...rest} = props;
+    const {className, onKeyDown} = props;
 
     return (
         <label>
