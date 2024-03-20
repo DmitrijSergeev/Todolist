@@ -21,10 +21,12 @@ type TodolistProps = {
     title: string
     todoId: string
     removeTodo: (todoId: string)=>void
+    updateTodoTitle: (todoId: string, title: string)=>void
+    updateTaskTitle: (todoId: string, taskId: string, title: string)=>void
 }
 export const Todolist = (props: TodolistProps) => {
     const {tasks, removeTask, changeFilter, addTask, changeTaskStatus,
-        filter, title, todoId, removeTodo} = props;
+        filter, title, todoId, removeTodo, updateTodoTitle, updateTaskTitle} = props;
 
     const changeTaskHandler = (todoId: string, filter: FilterType) => {
         changeFilter(todoId, filter)
@@ -35,10 +37,13 @@ export const Todolist = (props: TodolistProps) => {
     const addTaskCallback = (title: string) => {
         addTask(todoId, title)
     }
+    const updateTitle = (title: string) => {
+        updateTodoTitle(todoId, title)
+    }
     return (
         <div>
             <h3>
-                <EditableSpan value={title}/>
+                <EditableSpan value={title} updateTitle={updateTitle}/>
             </h3>
             <Button onClick={removeTodoHandler}>x</Button>
             <AddItemForm addItem={addTaskCallback}/>
@@ -53,6 +58,9 @@ export const Todolist = (props: TodolistProps) => {
                         const onChangeCheckedHandler = (e: ChangeEvent<HTMLInputElement>) => {
                             changeTaskStatus(todoId, t.taskId, e.currentTarget.checked)
                         }
+                        const updateTitle = (title: string)=> {
+                            updateTaskTitle(todoId, t.taskId, title)
+                        }
                         return (
                             <li key={t.taskId}
                                 className={t.isDone ? s.isDone : ''}>
@@ -60,7 +68,7 @@ export const Todolist = (props: TodolistProps) => {
                                 <input type="checkbox" checked={t.isDone}
                                        onChange={onChangeCheckedHandler}
                                 />
-                                <EditableSpan value={t.title}/>
+                                <EditableSpan value={t.title} updateTitle={updateTitle}/>
                             </li>
                         )
                     })}
