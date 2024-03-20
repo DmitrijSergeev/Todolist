@@ -15,7 +15,6 @@ export const EditableSpan = ({value, updateTitle}: EditableSpanProps) => {
                 updateTitle(editRef.current.value)
         }
     }
-
     const activateSetEditableSpan = () => {
         setEditMode(true)
     }
