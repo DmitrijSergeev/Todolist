@@ -29,9 +29,9 @@ function App() {
             {taskId: v1(), title: 'React', isDone: false},
         ],
         [todoId2]: [
-            {taskId: v1(), title: 'HTML', isDone: true},
-            {taskId: v1(), title: 'JS', isDone: false},
-            {taskId: v1(), title: 'React', isDone: false},
+            {taskId: v1(), title: 'Book', isDone: true},
+            {taskId: v1(), title: 'Milk', isDone: false},
+            {taskId: v1(), title: 'Eggs', isDone: false},
         ]
     })
     const changeFilter = (todoId: string, filter: FilterType) => {
