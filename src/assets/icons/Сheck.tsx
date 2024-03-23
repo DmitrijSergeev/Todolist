@@ -3,23 +3,21 @@ import React, {forwardRef, memo, Ref, SVGProps} from 'react';
 const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     <svg
         ref={ref}
-        width={8}
-        height={10}
-        viewBox={"0 0 8 10"}
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         {...props}
     >
+        <rect x="4" y="6" width="16" height="12" fill="black"/>
         <path
-            d={
-                'M16 0H2C0.89 0 0 0.9 0 2V16C0 17.1 0.89 18 2 18H16C17.11 18 18' +
-                '17.1 18 16V2C18 0.9 17.11 0 16 0ZM7' +
-                '14L2 9L3.41 7.59L7 11.17L14.59 3.58L16 5L7 14Z'
-        }
-            fill="currentColor"
+            d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21
+            19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+            fill="white"
         />
     </svg>
 );
-
 const ForwardRef = forwardRef(SvgComponent)
+
 export default memo(ForwardRef)
