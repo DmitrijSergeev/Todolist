@@ -10,9 +10,10 @@ type CheckBoxProps = {
 export const Checkbox = ({checked, onChange}: CheckBoxProps) => {
     return (
         <RadixCheckbox.Root className={s.root}>
-            <RadixCheckbox.Indicator >
-                <Check/>
-            </RadixCheckbox.Indicator >
+                <RadixCheckbox.Indicator
+                    className={s.indicator}>
+                    {checked && <Check/>}
+                </RadixCheckbox.Indicator >
         </RadixCheckbox.Root>
     );
 };
