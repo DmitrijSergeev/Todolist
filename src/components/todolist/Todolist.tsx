@@ -56,8 +56,8 @@ export const Todolist = (props: TodolistProps) => {
                         const removeOnCklick = () => {
                             removeTask(todoId, t.taskId)
                         }
-                        const onChangeCheckedHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                            changeTaskStatus(todoId, t.taskId, e.currentTarget.checked)
+                        const onChangeCheckedHandler = (checked: boolean) => {
+                            changeTaskStatus(todoId, t.taskId, checked)
                         }
                         const updateTitle = (title: string)=> {
                             updateTaskTitle(todoId, t.taskId, title)
@@ -67,7 +67,7 @@ export const Todolist = (props: TodolistProps) => {
                                 className={t.isDone ? s.isDone : ''}>
                                 <Button onClick={removeOnCklick}>X</Button>
                                 <Checkbox checked={t.isDone}
-                                       onChange={onChangeCheckedHandler}
+                                          onChange={onChangeCheckedHandler}
                                 />
                                 <EditableSpan value={t.title} updateTitle={updateTitle}/>
                             </li>

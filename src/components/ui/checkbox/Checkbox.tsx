@@ -1,15 +1,19 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import Check from "../../../assets/icons/Сheck";
 import s from './Checkbox.module.css'
 
 type CheckBoxProps = {
     checked?: boolean
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+    onChange?: (checked: boolean) => void
 }
 export const Checkbox = ({checked, onChange}: CheckBoxProps) => {
     return (
-        <RadixCheckbox.Root className={s.root}>
+        <RadixCheckbox.Root
+            className={s.root}
+            checked={checked}
+            onCheckedChange={onChange}
+        >
                 <RadixCheckbox.Indicator
                     className={s.indicator}>
                     {checked && <Check/>}
