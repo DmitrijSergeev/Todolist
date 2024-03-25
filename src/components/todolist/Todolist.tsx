@@ -29,6 +29,8 @@ export const Todolist = (props: TodolistProps) => {
     const {tasks, removeTask, changeFilter, addTask, changeTaskStatus,
         filter, title, todoId, removeTodo, updateTodoTitle, updateTaskTitle} = props;
 
+    const classNames = {box: s.box}
+
     const changeTaskHandler = (todoId: string, filter: FilterType) => {
         changeFilter(todoId, filter)
     }
@@ -64,12 +66,13 @@ export const Todolist = (props: TodolistProps) => {
                         }
                         return (
                             <li key={t.taskId}
-                                className={t.isDone ? s.isDone : ''}>
-                                <Button onClick={removeOnCklick}>X</Button>
+                                className={`${t.isDone ? s.isDone : ''} ${classNames.box}`}
+                            >
+                                <Button onClick={removeOnCklick}> X </Button>
                                 <Checkbox checked={t.isDone}
                                           onChange={onChangeCheckedHandler}
                                 />
-                                <EditableSpan value={t.title} updateTitle={updateTitle}/>
+                                <EditableSpan value={ t.title } updateTitle={updateTitle}/>
                             </li>
                         )
                     })}

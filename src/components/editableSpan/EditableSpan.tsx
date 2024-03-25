@@ -31,7 +31,7 @@ export const EditableSpan = ({value, updateTitle}: EditableSpanProps) => {
                        onChange={changeTitleHandler}
                 />
             ) : (
-                <span onDoubleClick={activateSetEditableSpan}>{value}</span>
+                <span onDoubleClick={activateSetEditableSpan}> { value } </span>
             )}
         </>
     );
