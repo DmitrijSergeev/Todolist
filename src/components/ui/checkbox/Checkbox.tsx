@@ -1,5 +1,5 @@
 import React from 'react';
-import * as RadixCheckbox from '@radix-ui/react-checkbox';
+import * as CheckboxRadix from '@radix-ui/react-checkbox';
 import * as LabelRadix from '@radix-ui/react-label'
 import Check from "../../../assets/icons/Сheck";
 import s from './Checkbox.module.scss'
@@ -9,33 +9,36 @@ type CheckBoxProps = {
     checked: boolean
     disabled?: boolean
     id?: string
-    label?: string
     onChange: (checked: boolean) => void
     required?: boolean
+    className?: string
 }
 export const Checkbox = (
-    {checked, onChange, disabled}: CheckBoxProps) => {
+    {checked, onChange, disabled, className, id, required}: CheckBoxProps) => {
     const classNames = {
-        container: clsx(s.container),
+        buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled),
+        container: clsx(s.container, className),
+        indicator: s.indicator,
         label: clsx(s.label, disabled && s.disabled),
         root: s.root,
-        indicator: s.indicator,
-        buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled),
     }
     return (
         <div className={classNames.container}>
             <LabelRadix.Root asChild className={classNames.label}>
                 <div className={classNames.buttonWrapper}>
-                    <RadixCheckbox.Root
-                        className={classNames.root}
+                    <CheckboxRadix.Root
                         checked={checked}
+                        className={classNames.root}
+                        disabled={disabled}
+                        id={id}
                         onCheckedChange={onChange}
+                        required={required}
                     > {checked &&
-                        <RadixCheckbox.Indicator className={classNames.indicator}>
+                        <CheckboxRadix.Indicator className={classNames.indicator}>
                             <Check/>
-                        </RadixCheckbox.Indicator>
+                        </CheckboxRadix.Indicator>
                     }
-                    </RadixCheckbox.Root>
+                    </CheckboxRadix.Root>
                 </div>
             </LabelRadix.Root>
         </div>

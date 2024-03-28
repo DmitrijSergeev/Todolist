@@ -1,8 +1,6 @@
 .container {
     display: flex;
-    column-gap: 10px;
     align-items: center;
-    width: fit-content;
 }
 .label {
     cursor: pointer;
@@ -14,6 +12,11 @@
         color: grey;
     }
 }
+.indicator {
+    width: 18px;
+    height: 18px;
+}
+
 .root {
     cursor: pointer;
 
@@ -24,8 +27,8 @@
     width: 18px;
     height: 18px;
 
-    background-color: #000;
-    border: 2px solid #c3c1c7;
+    background-color: transparent;
+    border: 2px solid black;
     border-radius: 2px;
 
     &:focus {
@@ -34,26 +37,33 @@
 
     &:disabled {
         cursor: initial;
-        border-color: var(--color-dark-100);
+        border-color: grey;
     }
 }
-//.buttonWrapper {
-//    cursor: pointer;
-//
-//    display: flex;
-//    align-items: center;
-//    justify-content: center;
-//
-//    width: 36px;
-//    height: 36px;
-//
-//    border-radius: 50%;
-//
-//    &.disabled {
-//        cursor: initial;
-//    }
-//}
-//.indicator {
-//    width: 18px;
-//    height: 18px;
-//}
+
+.buttonWrapper {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    &.disabled {
+        cursor: initial;
+    }
+
+    &:focus-within,
+    &:hover:not(.disabled),
+    &:hover .root:not([data-state='checked']) {
+        background-color: #2a2b2e;
+    }
+
+    &:active:not(.disabled) {
+        background-color: grey;
+    }
+}
