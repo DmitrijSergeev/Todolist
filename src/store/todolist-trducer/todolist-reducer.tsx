@@ -1,9 +1,9 @@
-export const todolistReducer = (state: any, action: any) =>{
-    switch (action.type){
-        case '': {
-            return state
-        }
-        default:
-            return state
-    }
-}
+import {createSlice} from "@reduxjs/toolkit";
+
+export const slice = createSlice({
+    name: 'todolists',
+    initialState: [],
+    reducers: {}
+})
+
+export const todolistReducer = slice.reducer

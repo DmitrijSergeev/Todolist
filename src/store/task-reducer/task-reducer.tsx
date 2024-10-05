@@ -1,9 +1,9 @@
-export const taskReducer = (state: any, action: any) => {
-    switch (action.type) {
-        case '': {
-            return state
-        }
-        default:
-            return state
-    }
-}
+import {createSlice} from "@reduxjs/toolkit";
+
+export const slice = createSlice({
+    name: 'tasks',
+    initialState: {},
+    reducers: {}
+})
+
+export const tasksReducer = slice.reducer
